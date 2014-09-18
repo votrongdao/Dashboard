@@ -1,0 +1,58 @@
+﻿<html>
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs();
+        });
+
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+              ['Expense Breakdown', 'Billion($)'],
+              ['Hardware', 11],
+              ['Training', 2],
+              ['Support', 2],
+              ['AntiHacking', 2],
+              ['Software', 7]
+            ]);
+
+            var options = {
+                title: 'Security Expenses'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+
+            //// 3D pie/////////
+            var options = {
+                title: 'My Daily Activities',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabPlain">Plain Pie</a></li>
+            <li><a href="#tab3D">3D Pie</a></li>
+        </ul>
+        <div id="tabPlain">
+            <div id="chart_div" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div id="tabColor">
+            <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+        </div>        
+    </div>
+
+
+</body>
+</html>

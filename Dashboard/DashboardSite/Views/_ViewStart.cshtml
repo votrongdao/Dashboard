@@ -1,0 +1,16 @@
+﻿@*@using DashboardSite.Framework*@
+@{
+    if (!UserPrincipal.Current.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout_Login.cshtml";
+    }
+    else if (ViewContext.Controller != null && ViewContext.Controller.ControllerContext.RouteData.Values["action"].ToString() == "Login")
+    {
+        new DashboardSite.Controllers.AccountController().LogOff();
+        Layout = "~/Views/Shared/_Layout_Login.cshtml";
+    }    
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }    
+}

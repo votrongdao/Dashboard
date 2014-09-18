@@ -1,0 +1,164 @@
+﻿@model LoginModel
+@using System.Web.Helpers
+@{
+    ViewBag.Title = "";
+}
+@*<div class="center-content" style="width:860px;">*@
+<hgroup class="title">
+    <br />
+    <h4>@ViewBag.Title</h4>
+</hgroup>
+<section id="loginFormWithoutLine">
+    @*<h2>Use a local account to log in.</h2>*@
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl, FormMethod.Post }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <br />
+          <table style="width: 1050px">
+              <tr>
+                  <td>
+                      <table style="border: 1px solid darkblue; border-collapse: collapse; padding: 5px; width: 550px; height: 443px">
+                          <tr class="Dashboard_Tr1">
+                              <td style="height:37px">
+                                  &nbsp;&nbsp; place holder title
+                              </td>
+                          </tr>
+                          <tr class="Dashboard_Tr2">
+                              <td style="text-align:left">
+                                  place holder
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+                  <td style="width: 10px;">
+                      &nbsp;&nbsp;
+                  <td>
+                  <td>
+                      <table style="border: 1px solid darkblue; border-collapse: collapse; width: 450px; height:447px">
+                          <tr class="Dashboard_Tr1">
+                              <td colspan="3">
+                                  &nbsp;&nbsp; Log In
+                              </td>
+                          </tr>
+                          <tr class="Dashboard_Tr2">
+                              <td style="text-align:right">
+                                  <br />
+                                  <br />
+                              </td>
+                              <td style=" text-align: left; "></td>
+                              <td style=" text-align: left; "></td>
+                          </tr>
+
+                          @*----------------User Name----------------*@
+                          <tr>
+                              <td></td>
+                              <td style=" text-align: center;">
+                                  <table>
+                                      <tr>
+                                          <td style="padding-left: 16px;">@Html.LabelFor(m => m.UserName)</td>
+                                          <td></td>
+                                          <td style="padding-left: 10px;">@Html.ActionLink("Help with logging In", "Contact", "Home")</td>
+                                      </tr>
+                                  </table>
+                              </td>
+                              <td style=" text-align: center; text-wrap:none"></td>
+
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td style="padding-left:10px; text-align: center">&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m => m.UserName, new { id = "userInput", tabindex = 1 })&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td style=" text-align: left; "></td>
+
+                          </tr>
+                          <tr class="Dashboard_Tr2">
+                              <td style="padding-left:10px; text-align:center" colspan="3">@Html.ValidationMessageFor(m => m.UserName)</td>
+                          </tr>
+
+                          @*----------------Password----------------*@
+                          <tr>
+                              <td></td>
+                              <td style=" text-align: center;">
+                                  <table>
+                                      <tr>
+                                          <td style="padding-left: 16px;">@Html.LabelFor(m => m.Password)</td>
+                                          <td></td>
+                                          <td style="text-align: right;padding-left: 10px;">@Html.ActionLink("Forgot your password?", "ForgetPassword", "Account")</td>
+                                      </tr>
+                                  </table>
+                              </td>
+                              <td style=" text-align: center; text-wrap:none"></td>
+                          </tr>
+
+                          <tr>
+                              <td></td>
+                              <td style="padding-left: 10px; text-align: center;">&nbsp;&nbsp;&nbsp;@Html.PasswordFor(m => m.Password, new { tabindex = 2 })&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td style=" text-align: left; "></td>
+                          </tr>
+                          <tr class="Dashboard_Tr2">
+                              <td style="text-align:center;" colspan="3">@Html.ValidationMessageFor(m => m.Password)</td>
+                          </tr>
+                          <tr>
+                              <td style="text-align: left; "></td>
+                              <td style="text-align: center"></td>
+                              <td style=" text-align: left; "></td>
+                          </tr>
+                          <tr>
+                              <td style="text-align: right; "></td>
+                              <td style="text-align: left; "></td>
+                              <td style=" text-align: left; "></td>
+                          </tr>
+                          <tr>
+                              <td colspan="3" style=" text-align: center; ">
+                                  <input type="submit" value="Log In" tabindex="3" />
+                              </td>
+                          </tr>
+                          <tr>
+                              <td colspan="3" style="text-align: center; ">
+                                  <br />
+                                  <br />
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+</table>
+
+    }
+    <div id="dialogCommon"></div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+}
+<style type="text/css">
+    .userInput.WaterMarkedTextBox {
+        color: gray;
+    }
+
+    .userInput.NormalTextBox {
+        color: black;
+    }
+</style>
+<script type="text/javascript">
+    function OpenDialog() {
+        $('#dialogCommon').dialog('open');
+    }
+    $(document).ready(
+
+    function () {
+        $("#userInput").focus();
+
+        $('#dialogCommon').dialog({
+            autoOpen: false,
+            modal: true,
+            open: function (event, ui) {
+                //alert("test");
+                $(this).load("/Account/ChangePassword");
+            }
+        });
+    });
+</script>
+
+

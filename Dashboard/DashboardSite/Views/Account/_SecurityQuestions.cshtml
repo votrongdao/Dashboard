@@ -1,0 +1,89 @@
+﻿@model SecurityQuestionViewModel
+@if (Model.IsAnswerStep)
+{
+    @Html.ValidationSummary()
+}
+<div class="container-fluid">
+    <div class="row col-md-12 text-left">
+        <h4 style="text-align:center;">@ViewBag.Title</h4>
+    </div>
+    <div class="row" style="margin-top:30px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.FirstQuestionId)
+        </span>
+        <span class="col-md-9">
+        @Html.DropDownListFor(m => m.FirstQuestionId, Model.QuestionList, "Select question") 
+        @Html.ValidationMessageFor(m => m.QuestionList)
+        </span>
+    </div>
+    <div class="row" style="margin-top:5px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.FirstAnswer)
+        </span>
+        <span class="col-md-9">
+            @if (Model.IsAnswerStep)
+            {
+                @Html.TextBoxFor(m => m.FirstAnswer, new { placeholder = "Answer", style = "width:376px;" })
+                @Html.ValidationMessageFor(m => m.FirstAnswer)
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.FirstAnswer, new { placeholder = "Answer", style = "width:376px;display:none;" })
+                @Html.TextBoxFor(m => m.UserAnswer1, new { placeholder = "Answer", style = "width:376px;" })
+            }           
+        </span>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.SecondQuestionId)
+        </span>
+        <span class="col-md-9">
+           @Html.DropDownListFor(m => m.SecondQuestionId, Model.QuestionList, "Select question")
+           @Html.ValidationMessageFor(m => m.QuestionList)
+          </span>
+    </div>
+    <div class="row" style="margin-top:5px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.SecondAnswer)
+        </span>
+        <span class="col-md-9">
+            @if (Model.IsAnswerStep)
+            {
+                @Html.TextBoxFor(m => m.SecondAnswer, new { placeholder = "Answer", style = "width:376px;" })
+                @Html.ValidationMessageFor(m => m.SecondAnswer)
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.SecondAnswer, new { placeholder = "Answer", style = "width:376px;display:none;" })
+                @Html.TextBoxFor(m => m.UserAnswer2, new { placeholder = "Answer", style = "width:376px;" })
+            }            
+        </span>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.ThirdQuestionId)            
+        </span>
+        <span class="col-md-9">
+            @Html.DropDownListFor(m => m.ThirdQuestionId, Model.QuestionList, "Select question")
+            @Html.ValidationMessageFor(m => m.QuestionList)
+            </span>
+    </div>
+    <div class="row" style="margin-top:5px;">
+        <span class="col-md-3 text-right">
+            @Html.LabelFor(m => m.ThirdAnswer)
+        </span>
+        <span class="col-md-9">
+            @if (Model.IsAnswerStep)
+            {
+                @Html.TextBoxFor(m => m.ThirdAnswer, new { placeholder = "Answer", style = "width:376px;" })
+                @Html.ValidationMessageFor(m => m.ThirdAnswer)                
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.ThirdAnswer, new { placeholder = "Answer", style = "width:376px;display:none;" })
+                @Html.TextBoxFor(m => m.UserAnswer3, new { placeholder = "Answer", style = "width:376px;" })
+            } 
+            @Html.HiddenFor(m => m.UserName)           
+        </span>
+    </div>
+</div>

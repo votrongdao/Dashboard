@@ -1,0 +1,75 @@
+﻿.webGrid {
+    margin: 4px;
+    border-collapse: collapse;
+    width: 500px;
+    background-color: #FCFCFC;
+}
+
+.webGrid .header {
+    background-color: #C1D4E6;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.webGrid th, .webGrid td {
+    border: 1px solid #C0C0C0;
+    padding: 5px;
+}
+
+.webGrid .alt {
+    background-color: #E4E9F5;
+    color: #000;
+}
+
+.webGrid th a:hover {
+    text-decoration: underline;
+}
+
+.webGrid .description {
+    width: auto;
+}
+
+.webGrid .description_nowrap {
+    width: auto;
+    white-space: nowrap;
+}
+
+.webGrid .number {
+    width: auto;
+    text-align:right;
+}
+
+/* webgrid style */
+.fht-table .header_row {
+    background-color: #C1D4E6;
+    font-weight: bold;
+    color: #ffffff;
+    text-align:center;
+}
+
+.webGrid .item_row {
+    /*text-align: right;*/
+    white-space: nowrap;
+}
+
+.webGrid .item_alt_row {
+    background-color: #E4E9F5;
+    color: #000;
+    /*text-align:right;*/
+    white-space: nowrap;
+}
+
+tr.header_row th:nth-child(5) { width: 250px; }
+
+tr.item_row td:nth-child(5) { width: 250px; }
+
+.webGrid .blank{
+    width: auto;
+    display:table-column;
+}
+
+.webGrid .select {
+    background-color: #389DF5;
+}
+
+/*.webGrid thead { position: fixed; margin-top: -30px; }*/

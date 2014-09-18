@@ -1,0 +1,247 @@
+﻿@using DashboardSite.BusinessService
+@model IEnumerable<UserViewModel>
+<style type="text/css">
+    ul.ui-autocomplete {
+        list-style: none;
+        list-style-type: none;
+        padding: 2px;
+        margin: 0px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(
+function () {
+    styleGrid();
+    var url = '@Url.Action("SearchByFirstOrLastName", "Account")';
+    //autocomplete for search by firstname/lastname
+    $('#txtSearch').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: url,
+                data: { searchText: request.term, maxResults: 15 },
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                type: 'GET',
+                success: function (data) {
+                    response($.map(data,
+                function (item) {
+                    return {
+                        label:  item.FirstName +", "+ item.LastName,
+                        value1: item.FirstName + "," + item.LastName
+                       
+                    }
+                }));
+                }
+            })
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Status: " + textStatus); alert("Error: " + errorThrown)
+        },
+        select: function (event, ui) {
+           $('#txtSearch').val(ui.item.value1);
+           var url = '@Url.Action("GetUserByFirstAndLastName", "Account")';          
+           $.ajax({
+               url: url,
+               data: { firstAndLastName: ui.item.value1 },
+               contentType: "application/json; charset=utf-8",
+               type: 'GET',
+               cache: false,
+               success: function (data) {
+                   { $("#dvContainer").html(''); $("#dvContainer").html(data); }
+               },
+               error: function (XMLHttpRequest, textStatus, errorThrown) {
+                   alert("Status: " + textStatus); alert("Error: " + errorThrown)
+               }
+           })
+           return false;
+       },
+        open: function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close: function () {
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+        },
+        minLength: 1
+
+    });
+}
+);
+    function styleGrid() {
+        $('.webGrid .color').each(function (index, element) { $(element).parent().css('background-color', $(element).html()); });
+        $('.webGrid').fixedHeaderTable({ height: '490', width: '1260', fixedColumn: true, footer: true, themeClass: 'fixedHeader' });
+    }
+    function clearSearchText() {
+        $('#txtSearch').text = "";
+    }
+</script>
+
+@{
+    UserViewModel user = new UserViewModel();
+}
+@{
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 10,
+        selectionFieldName: "selectedRow",
+        ajaxUpdateContainerId: "gridContent",
+        ajaxUpdateCallback: "styleGrid");
+        }
+<div id="dvContainer">
+    <div class="container-fluid">
+        <div class="row">
+            <span class="content-wrapper col-md-3" style="width:auto;">
+                <label for="txtSearch" style="padding-top:7px;">Search By FirstName/LastName</label>
+            </span>
+            <span class="content-wrapper col-md-2" style="margin-bottom:5px;">
+                <input type="text" id="txtSearch" class="form-control" style="width:auto;" />
+            </span>
+            <span class="content-wrapper col-md-2">
+                <input type="button" class="form-control" value="Reset" onclick="window.location.href='@Url.Action("ListUsers", "Account")'">
+            </span>
+        </div>
+    </div>
+    <div id="gridContent">
+        @{ var gridColumns = new List<WebGridColumn>();
+             gridColumns.Add(grid.Column("UserName", "User Name", (item) => Html.ActionLink(((object)item.UserName).ToString(), "GoToEditUserView", "Account", new { id = item.UserID }, null)));
+             gridColumns.Add(grid.Column("SelectedRoles", "Role", style: "description"));
+            // gridColumns.Add(grid.Column("UserName", "User Name", style: "description"));            
+             gridColumns.Add(grid.Column("FirstName", "First Name", style: "description"));
+             gridColumns.Add(grid.Column("LastName", "Last Name", style: "description"));
+             gridColumns.Add(grid.Column("Title", "Title", style: "description"));
+             gridColumns.Add(grid.Column("Organization", "Organization", style: "description"));
+             gridColumns.Add(grid.Column("LenderName", "Lender Name", style: "description"));
+             gridColumns.Add(grid.Column("ServicerName", "Servicer Name", style: "description"));
+             gridColumns.Add(grid.Column("PhoneNumber", "Phone Number", style: "description"));
+             gridColumns.Add(grid.Column("AddressLine1", "Address", style: "description"));
+             gridColumns.Add(grid.Column("City", "City", style: "description"));
+             gridColumns.Add(grid.Column("SelectedStateCd", "State", style: "description"));
+             gridColumns.Add(grid.Column("ZipCode", "Zip Code", style: "description"));
+             gridColumns.Add(grid.Column("EmailAddress", "Email", style: "description"));
+             gridColumns.Add(grid.Column("SelectedTimezone", "User Timezone", style: "description"));
+             gridColumns.Add(grid.Column("IsRegisterComplete", "Register Not Complete", style: "description", format: (item) => { bool t = item.IsRegisterComplete == true ? false : true; return new HtmlString("<span>" + Html.CheckBoxFor(x => t, new { @disabled = "disabled" }) + "</span>"); }));
+             gridColumns.Add(grid.Column("IsAccountLocked", "Account Locked", style: "description", format: (item) => { bool t = item.IsAccountLocked ?? false; return new HtmlString("<span>" + Html.CheckBoxFor(x => t, new { @disabled = "disabled", @id = "LockShow_" + item.UserID }) + Html.CheckBoxFor(x => t, new { @style = "display:none", @id = "LockEdit_" + item.UserID }) + "</span>"); })); if (RoleManager.IsAdminRole(UserPrincipal.Current.UserName))
+             {
+                 gridColumns.Add(grid.Column("Action", style: "description", format: @<text>
+                <a href="#" id="Edit_@item.UserID" class="edit">Edit</a>
+                <a href="#" id="Update_@item.UserID" style="display:none" class="update">Update</a>
+                <a href="#" id="Cancel_@item.UserID" style="display:none" class="cancel">Cancel</a>
+                <a href="#" id="Delete_@item.UserID" class="delete">Delete</a></text>));
+             }
+        }
+        @if (Model.ToList().Count > 0)
+            {
+            @grid.GetHtml(tableStyle: "webGrid",
+                headerStyle: "header_row",
+                rowStyle: "item_row",
+                alternatingRowStyle: "item_alt_row",
+                selectedRowStyle: "select",
+                mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",                                   
+                columns: gridColumns.ToArray())
+            }
+    </div>
+</div>
+        <script type="text/javascript">
+            $(".edit").live("click", function () {
+                var str = $(this).attr("id").split("_");
+                id = str[1];
+
+                var LockEdit = "#LockEdit_" + id;
+                var LockShow = "#LockShow_" + id;
+
+                $(LockEdit).show();
+                $(LockShow).hide();
+
+                $(this).hide();
+                $("#Update_" + id).show();
+                $("#Cancel_" + id).show();
+            });
+
+            $(".update").live("click", function () {
+                var str = $(this).attr("id").split("_");
+                id = str[1];
+
+                var LockEdit = $("#LockEdit_" + id);
+                var LockShow = $("#LockShow_" + id);
+                if (!LockShow.is(':checked') && LockEdit.is(':checked')) {
+                    alert("You are not allowed to lockout user.");
+                    return false;
+                }
+                if (id != "") {
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("UnlockUser", "Account")',
+                        data: { "userId": id },
+                        dataType: "json",
+                        beforeSend: function () {//alert(id);
+                        },
+                        success: function (data) {
+                            if (data.result == true) {
+                                $("#Update_" + id).hide();
+                                $("#Cancel_" + id).hide();
+                                $("#Edit_" + id).show();
+                                LockEdit.hide();
+                                LockShow.show();
+
+                                LockShow.attr('checked', false).attr('disabled', true);
+                            }
+                            else {
+                                alert('There is some error');
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(".cancel").live("click", function () {
+                var flag = confirm('Are you sure to cancel');
+                if (flag) {
+                    var str = $(this).attr("id").split("_");
+                    id = str[1];
+
+                    var LockEdit = "#LockEdit_" + id;
+                    var LockShow = "#LockShow_" + id;
+
+                    $(LockEdit).hide();
+                    $(LockShow).show();
+
+                    $(this).hide();
+                    $("#Edit_" + id).show();
+                    $("#Update_" + id).hide();
+                    $("#Cancel_" + id).hide();
+                }
+            });
+
+            $(".delete").live("click", function () {
+                var str = $(this).attr("id").split("_");
+                id = str[1];
+                //alert("This is not implemented.");
+                //return false;
+                var flag = confirm('Are you sure to delete?');
+                if (id != "" && flag) {
+                    $.ajax({
+                        type: "GET",
+                        cache: false,
+                        contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("DeleteUser", "Account")',
+                        data: { "userId": id },
+                        dataType: "json",
+                        beforeSend: function () { },
+                        success: function (data) {
+                            if (data.result == true) {
+                                $("#Update_" + id).parents("tr").remove();
+                            }
+                            else {
+                                alert('There is some error');
+                            }
+                        }
+                    });
+                }
+            });
+
+           
+        </script>
+

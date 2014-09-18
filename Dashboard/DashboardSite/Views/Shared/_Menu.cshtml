@@ -1,0 +1,181 @@
+﻿<style type="text/css">
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    .nav{
+         border: 1px solid #0C1D7D;
+        background-color: #0C1D7D;
+    }
+    .nav > li > a {
+        display:inline;
+        color:#fff;
+        font-size:12px;
+    }
+   
+    .nav>li>a:hover, .nav>li>a:focus, .nav>li>a:active, .nav>li>a:visited{
+        text-decoration: none;
+        background-color: transparent; 
+        opacity:1;
+        visibility: visible;
+        z-index: 250;        
+    }
+    .nav .open > a, .nav .open > a:hover, .nav .open > a:focus
+     {
+        background-color: transparent;
+    }
+    .dropdown-menu>li>a{
+        font-size:12px;
+    }
+    /*$bgDefault : #e74c3c; $bgHighlight : #c0392b; $colDefault : #ecf0f1; $colHover : #ffbbbc;*/
+    /* navbar */
+   
+        /* title */
+        .navbar-default .navbar-brand {
+            color: #777;
+        }
+
+            .navbar-default .navbar-brand:hover,
+            .navbar-default .navbar-brand:focus {
+                color: #5E5E5E;
+            }
+        /* link */
+        .navbar-default .navbar-nav > li > a {
+            color: #777;
+        }
+
+            .navbar-default .navbar-nav > li > a:hover,
+            .navbar-default .navbar-nav > li > a:focus {
+                color: #333;
+            }
+
+        .navbar-default .navbar-nav > .open > a,
+        .navbar-default .navbar-nav > .open > a:hover,
+        .navbar-default .navbar-nav > .open > a:focus {
+            color: #555;
+            background-color: #D5D5D5;
+        }
+        /* caret */
+        .navbar-default .navbar-nav > .dropdown > a .caret {
+            border-top-color: #777;
+            border-bottom-color: #777;
+        }
+
+        .navbar-default .navbar-nav > .dropdown > a:hover .caret,
+        .navbar-default .navbar-nav > .dropdown > a:focus .caret {
+            border-top-color: #333;
+            border-bottom-color: #333;
+        }
+
+        .navbar-default .navbar-nav > .open > a .caret,
+        .navbar-default .navbar-nav > .open > a:hover .caret,
+        .navbar-default .navbar-nav > .open > a:focus .caret {
+            border-top-color: #555;
+            border-bottom-color: #555;
+        }
+        /* mobile version */
+        .navbar-default .navbar-toggle {
+            border-color: #DDD;
+        }
+
+            .navbar-default .navbar-toggle:hover,
+            .navbar-default .navbar-toggle:focus {
+                background-color: #DDD;
+            }
+
+            .navbar-default .navbar-toggle .icon-bar {
+                background-color: #CCC;
+            }
+</style>
+@helper  BuildMenu()
+{
+    var menus = new List<MenuNodeModel>();
+    menus.Add(new MenuNodeModel("Home", "Home", "Index", "", "All"));    
+    menus.Add(new MenuNodeModel("Log Out", "Account", "LogOff", "Home", "All"));
+
+    menus.Add(new MenuNodeModel("Dashboard Charts", "Chart", "Index", "", "All"));
+    menus.Add(new MenuNodeModel("Pie Chart", "Chart", "PieChart", "Dashboard Charts", "All"));
+    menus.Add(new MenuNodeModel("Bar Chart", "Chart", "BarChart", "Dashboard Charts", "All"));
+    menus.Add(new MenuNodeModel("Histogram", "Chart", "ReportExcelUpload", "Dashboard Charts", "All"));
+    menus.Add(new MenuNodeModel("Geo Chart", "Chart", "UploadStatusReport", "Dashboard Charts", "All"));
+    menus.Add(new MenuNodeModel("Heat Map", "Chart", "ViewExcelUploadPageSort", "Dashboard Charts", "All"));
+    menus.Add(new MenuNodeModel("3D Charts", "Chart", "Index", "Dashboard Charts", "Administrator,SuperUser"));
+    menus.Add(new MenuNodeModel("Interactive", "Chart", "Index", "Dashboard Charts", "Administrator,SuperUser"));
+
+    menus.Add(new MenuNodeModel("Administration", "Account", "DoNothing", "", "All"));
+    menus.Add(new MenuNodeModel("Manage User", "Account", "ListUsers", "Administration", "Administrator,SuperUser"));
+    menus.Add(new MenuNodeModel("Register", "Account", "RegisterUserStep1", "Administration", "Administrator,SuperUser"));
+    menus.Add(new MenuNodeModel("Change Password", "Account", "ChangePasswordFromMenu", "Administration", "All"));
+
+    menus.Add(new MenuNodeModel("Contact Us", "Home", "Index", "", "All"));
+    menus.Add(new MenuNodeModel("Contact Info", "Home", "Contact", "Contact Us", "All"));
+
+    @:<div class="navbar" style="width:100%;"><div><ul class="nav nav-pills">
+    if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        String[] roles = Roles.GetRolesForUser();
+        var links = from item in menus
+                    where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Any(x => roles.Contains(x) || x == "All")
+                    select item;
+        
+        foreach (MenuNodeModel link in links)
+        {
+            string url = Url.Action(link.Action, link.Controller);
+            var childrenLinks = from item in links
+                                where item.ParentNode == link.Title
+                                select item;
+
+            if (childrenLinks.Any())            
+            {
+                @:<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="@url">@link.Title <b class="caret"></b></a>@DropDownMenu(childrenLinks)</li>
+            }
+
+            if (link != links.Last())
+            {
+                @:<li class="divider-vertical"></li>
+            }
+        }
+    }       
+    else
+    {
+        var links = from item in menus
+                    where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                    select item;
+        foreach (var link in links)
+        {
+            @:<li> @Html.ActionLink(link.Title, link.Action, link.Controller)</li>
+     }
+    }
+    @:</ul></div></div>
+}
+
+@helper DropDownMenu(IEnumerable<MenuNodeModel> menuList)
+{
+    @:<ul class="dropdown-menu">
+        foreach (MenuNodeModel menu in menuList)
+        {
+            if (menu.Title == "Separator")
+            {
+                @:<li class="divider"></li>
+                continue;
+            }
+
+            string url = Url.Action(menu.Action, menu.Controller);
+            var childrenLinks = from item in menuList
+                                where item.ParentNode == menu.Title
+                                select item;
+
+            if (!childrenLinks.Any())
+            {
+                @:<li><a href="@url">@menu.Title</a></li>
+            }
+            else
+            {
+                @:<li class="dropdown-submenu"><a href="@url">@menu.Title</a>@DropDownMenu(childrenLinks)</li>
+            }
+        }
+    @:</ul>
+}
+
+@BuildMenu()

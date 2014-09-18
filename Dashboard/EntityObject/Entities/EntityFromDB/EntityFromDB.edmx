@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DashboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="80" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="80" />
+          <Property Name="City" Type="nvarchar" MaxLength="56" />
+          <Property Name="StateCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="ZIP" Type="nvarchar" MaxLength="20" />
+          <Property Name="ZIP4_Code" Type="nvarchar" MaxLength="10" />
+          <Property Name="PhonePrimary" Type="nvarchar" MaxLength="25" />
+          <Property Name="PhoneAlternate" Type="nvarchar" MaxLength="25" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="25" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="int" />
+          <Property Name="Deleted_Ind" Type="bit" />
+        </EntityType>
+        <EntityType Name="Authentication">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="UserMInitial" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="int" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="Deleted_Ind" Type="bit" />
+          <Property Name="PreferredTimeZone" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasswordHist" Type="nvarchar(max)" />
+          <Property Name="IsRegisterComplete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailTo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EmailFrom" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="EmailCC" Type="nvarchar(max)" />
+          <Property Name="EmailBCC" Type="nvarchar(max)" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ContentText" Type="nvarchar(max)" />
+          <Property Name="ContentHtml" Type="nvarchar(max)" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="int" />
+          <Property Name="Deleted_Ind" Type="bit" />
+          <Property Name="IsSent" Type="bit" />
+          <Property Name="MailTypeId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailType">
+          <Key>
+            <PropertyRef Name="EmailTypeId" />
+          </Key>
+          <Property Name="EmailTypeId" Type="tinyint" Nullable="false" />
+          <Property Name="EmailTypeCd" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmailTypeDescription" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted_ind" Type="bit" />
+        </EntityType>
+        <EntityType Name="SecurityQuestions">
+          <Key>
+            <PropertyRef Name="SecurityQuestionID" />
+          </Key>
+          <Property Name="SecurityQuestionID" Type="int" Nullable="false" />
+          <Property Name="SecurityQuestionDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="Deleted_Ind" Type="bit" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateCode" />
+          </Key>
+          <Property Name="StateCode" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_SecurityQuestion">
+          <Key>
+            <PropertyRef Name="User_SecurityQuestionID" />
+          </Key>
+          <Property Name="User_SecurityQuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="Deleted_Ind" Type="bit" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="128" />
+          <Property Name="SecurityQuestionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Address_State1">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HCP_Authentication_Address">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Authentication" Type="Self.Authentication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Authentication">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SecurityQuestion_HCP_Authentication">
+          <End Role="Authentication" Type="Self.Authentication" Multiplicity="1" />
+          <End Role="User_SecurityQuestion" Type="Self.User_SecurityQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authentication">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User_SecurityQuestion">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SecurityQuestion_SecurityQuestion">
+          <End Role="SecurityQuestions" Type="Self.SecurityQuestions" Multiplicity="1" />
+          <End Role="User_SecurityQuestion" Type="Self.User_SecurityQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityQuestions">
+              <PropertyRef Name="SecurityQuestionID" />
+            </Principal>
+            <Dependent Role="User_SecurityQuestion">
+              <PropertyRef Name="SecurityQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_AuthenticateInitial_LogIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Get_Admin_ManageUsers_View" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DashboardModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authentication" EntityType="Self.Authentication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailType" EntityType="Self.EmailType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_SecurityQuestion" EntityType="Self.User_SecurityQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Address_State1" Association="Self.FK_Address_State1">
+            <End Role="States" EntitySet="States" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HCP_Authentication_Address" Association="Self.FK_HCP_Authentication_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Authentication" EntitySet="Authentication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SecurityQuestion_HCP_Authentication" Association="Self.FK_User_SecurityQuestion_HCP_Authentication">
+            <End Role="Authentication" EntitySet="Authentication" />
+            <End Role="User_SecurityQuestion" EntitySet="User_SecurityQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SecurityQuestion_SecurityQuestion" Association="Self.FK_User_SecurityQuestion_SecurityQuestion">
+            <End Role="SecurityQuestions" EntitySet="SecurityQuestions" />
+            <End Role="User_SecurityQuestion" EntitySet="User_SecurityQuestion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DashboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressLine1" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ZIP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ZIP4_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhonePrimary" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneAlternate" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="Int32" />
+          <Property Name="Deleted_Ind" Type="Boolean" />
+          <NavigationProperty Name="State" Relationship="Self.FK_Address_State1" FromRole="Addresses" ToRole="States" />
+          <NavigationProperty Name="Authentications" Relationship="Self.FK_HCP_Authentication_Address" FromRole="Addresses" ToRole="Authentication" />
+        </EntityType>
+        <EntityType Name="Authentication">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserMInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="Int32" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="Deleted_Ind" Type="Boolean" />
+          <Property Name="PreferredTimeZone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHist" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRegisterComplete" Type="Boolean" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_HCP_Authentication_Address" FromRole="Authentication" ToRole="Addresses" />
+          <NavigationProperty Name="User_SecurityQuestion" Relationship="Self.FK_User_SecurityQuestion_HCP_Authentication" FromRole="Authentication" ToRole="User_SecurityQuestion" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailFrom" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailBCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="OnBehalfOfBy" Type="Int32" />
+          <Property Name="Deleted_Ind" Type="Boolean" />
+          <Property Name="IsSent" Type="Boolean" />
+          <Property Name="MailTypeId" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailType">
+          <Key>
+            <PropertyRef Name="EmailTypeId" />
+          </Key>
+          <Property Name="EmailTypeId" Type="Byte" Nullable="false" />
+          <Property Name="EmailTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailTypeDescription" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Deleted_ind" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SecurityQuestion">
+          <Key>
+            <PropertyRef Name="SecurityQuestionID" />
+          </Key>
+          <Property Name="SecurityQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="SecurityQuestionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="Deleted_Ind" Type="Boolean" />
+          <NavigationProperty Name="User_SecurityQuestion" Relationship="Self.FK_User_SecurityQuestion_SecurityQuestion" FromRole="SecurityQuestions" ToRole="User_SecurityQuestion" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateCode" />
+          </Key>
+          <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_State1" FromRole="States" ToRole="Addresses" />
+        </EntityType>
+        <EntityType Name="User_SecurityQuestion">
+          <Key>
+            <PropertyRef Name="User_SecurityQuestionID" />
+          </Key>
+          <Property Name="User_SecurityQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="Deleted_Ind" Type="Boolean" />
+          <Property Name="Answer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityQuestionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Authentication" Relationship="Self.FK_User_SecurityQuestion_HCP_Authentication" FromRole="User_SecurityQuestion" ToRole="Authentication" />
+          <NavigationProperty Name="SecurityQuestion" Relationship="Self.FK_User_SecurityQuestion_SecurityQuestion" FromRole="User_SecurityQuestion" ToRole="SecurityQuestions" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderUserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="webpages_UsersInRoles" Relationship="Self.fk_RoleId" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="webpages_Roles" Relationship="Self.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+        </EntityType>
+        <Association Name="FK_Address_State1">
+          <End Role="States" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HCP_Authentication_Address">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Authentication" Type="Self.Authentication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Authentication">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SecurityQuestion_HCP_Authentication">
+          <End Role="Authentication" Type="Self.Authentication" Multiplicity="1" />
+          <End Role="User_SecurityQuestion" Type="Self.User_SecurityQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authentication">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User_SecurityQuestion">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SecurityQuestion_SecurityQuestion">
+          <End Role="SecurityQuestions" Type="Self.SecurityQuestion" Multiplicity="1" />
+          <End Role="User_SecurityQuestion" Type="Self.User_SecurityQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityQuestions">
+              <PropertyRef Name="SecurityQuestionID" />
+            </Principal>
+            <Dependent Role="User_SecurityQuestion">
+              <PropertyRef Name="SecurityQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DashboardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Authentications" EntityType="Self.Authentication" />
+          <EntitySet Name="Emails" EntityType="Self.Email" />
+          <EntitySet Name="EmailTypes" EntityType="Self.EmailType" />
+          <EntitySet Name="SecurityQuestions" EntityType="Self.SecurityQuestion" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="User_SecurityQuestion" EntityType="Self.User_SecurityQuestion" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" />
+          <AssociationSet Name="FK_Address_State1" Association="Self.FK_Address_State1">
+            <End Role="States" EntitySet="States" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HCP_Authentication_Address" Association="Self.FK_HCP_Authentication_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Authentication" EntitySet="Authentications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SecurityQuestion_HCP_Authentication" Association="Self.FK_User_SecurityQuestion_HCP_Authentication">
+            <End Role="Authentication" EntitySet="Authentications" />
+            <End Role="User_SecurityQuestion" EntitySet="User_SecurityQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SecurityQuestion_SecurityQuestion" Association="Self.FK_User_SecurityQuestion_SecurityQuestion">
+            <End Role="SecurityQuestions" EntitySet="SecurityQuestions" />
+            <End Role="User_SecurityQuestion" EntitySet="User_SecurityQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <FunctionImport Name="usp_AuthenticateInitial_LogIn" ReturnType="Collection(DashboardModel.usp_AuthenticateInitial_LogIn_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Get_Admin_ManageUsers_View" ReturnType="Collection(DashboardModel.usp_Get_Admin_ManageUsers_View_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_AuthenticateInitial_LogIn_Result">
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PreferredTimeZone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Get_Admin_ManageUsers_View_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserMInitial" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ModifiedBy" Nullable="false" />
+          <Property Type="Int32" Name="OnBehalfOfBy" Nullable="true" />
+          <Property Type="Int32" Name="AddressID" Nullable="true" />
+          <Property Type="Boolean" Name="Deleted_Ind" Nullable="true" />
+          <Property Type="String" Name="PreferredTimeZone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PasswordHist" Nullable="true" />
+          <Property Type="Boolean" Name="IsRegisterComplete" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DashboardModelStoreContainer" CdmEntityContainer="DashboardEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="DashboardModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="ZIP4_Code" ColumnName="ZIP4_Code" />
+                <ScalarProperty Name="PhonePrimary" ColumnName="PhonePrimary" />
+                <ScalarProperty Name="PhoneAlternate" ColumnName="PhoneAlternate" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="OnBehalfOfBy" ColumnName="OnBehalfOfBy" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authentications">
+            <EntityTypeMapping TypeName="DashboardModel.Authentication">
+              <MappingFragment StoreEntitySet="Authentication">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserMInitial" ColumnName="UserMInitial" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="OnBehalfOfBy" ColumnName="OnBehalfOfBy" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+                <ScalarProperty Name="PreferredTimeZone" ColumnName="PreferredTimeZone" />
+                <ScalarProperty Name="PasswordHist" ColumnName="PasswordHist" />
+                <ScalarProperty Name="IsRegisterComplete" ColumnName="IsRegisterComplete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="DashboardModel.Email">
+              <MappingFragment StoreEntitySet="Email">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="EmailTo" ColumnName="EmailTo" />
+                <ScalarProperty Name="EmailFrom" ColumnName="EmailFrom" />
+                <ScalarProperty Name="EmailCC" ColumnName="EmailCC" />
+                <ScalarProperty Name="EmailBCC" ColumnName="EmailBCC" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="ContentHtml" ColumnName="ContentHtml" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="OnBehalfOfBy" ColumnName="OnBehalfOfBy" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="MailTypeId" ColumnName="MailTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailTypes">
+            <EntityTypeMapping TypeName="DashboardModel.EmailType">
+              <MappingFragment StoreEntitySet="EmailType">
+                <ScalarProperty Name="EmailTypeId" ColumnName="EmailTypeId" />
+                <ScalarProperty Name="EmailTypeCd" ColumnName="EmailTypeCd" />
+                <ScalarProperty Name="EmailTypeDescription" ColumnName="EmailTypeDescription" />
+                <ScalarProperty Name="Deleted_ind" ColumnName="Deleted_ind" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityQuestions">
+            <EntityTypeMapping TypeName="DashboardModel.SecurityQuestion">
+              <MappingFragment StoreEntitySet="SecurityQuestions">
+                <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+                <ScalarProperty Name="SecurityQuestionDescription" ColumnName="SecurityQuestionDescription" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="DashboardModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_SecurityQuestion">
+            <EntityTypeMapping TypeName="DashboardModel.User_SecurityQuestion">
+              <MappingFragment StoreEntitySet="User_SecurityQuestion">
+                <ScalarProperty Name="User_SecurityQuestionID" ColumnName="User_SecurityQuestionID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="DashboardModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="DashboardModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="DashboardModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_UsersInRoles">
+            <EntityTypeMapping TypeName="DashboardModel.webpages_UsersInRoles">
+              <MappingFragment StoreEntitySet="webpages_UsersInRoles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_AuthenticateInitial_LogIn" FunctionName="DashboardModel.Store.usp_AuthenticateInitial_LogIn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DashboardModel.usp_AuthenticateInitial_LogIn_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PreferredTimeZone" ColumnName="PreferredTimeZone" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Get_Admin_ManageUsers_View" FunctionName="DashboardModel.Store.usp_Get_Admin_ManageUsers_View">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DashboardModel.usp_Get_Admin_ManageUsers_View_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserMInitial" ColumnName="UserMInitial" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="OnBehalfOfBy" ColumnName="OnBehalfOfBy" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Deleted_Ind" ColumnName="Deleted_Ind" />
+                <ScalarProperty Name="PreferredTimeZone" ColumnName="PreferredTimeZone" />
+                <ScalarProperty Name="PasswordHist" ColumnName="PasswordHist" />
+                <ScalarProperty Name="IsRegisterComplete" ColumnName="IsRegisterComplete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

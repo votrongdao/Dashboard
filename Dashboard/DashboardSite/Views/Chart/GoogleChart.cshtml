@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "PieChart";
+}
+@using (Html.BeginForm("ViewExcelUploadsByCategoryBridge", "ExcelUploadView_", 
+    FormMethod.Post, new { enctype = "multipart/form-data", id = "chartformId" }))
+{
+<div id="dvUpdate">
+<input type="hidden" name="category" id="hfCategory" />
+<table style="position: relative; left: 100px; top: 20px;">
+    <tr>
+        <td colspan="2" style="text-align:center;font-weight:bold;"><span id="strPrjCnt"></span></td>
+    </tr>
+    <tr>
+        <td>
+            <div id="pie_chart" style="width:350px; height:350px;"></div>
+        </td>
+        <td>
+            <div id="bar_chart" style="width:350px; height:350px;"></div>
+        </td>
+    </tr>
+</table>
+    </div>
+    <div id="dialogCommon"></div>
+}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    // <![CDATA[
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        function colorsArray(data) {
+            var array = [];
+            for (var i = 0; i < data.length; i++) {
+                array.push(colors[data[i].Category]);
+            }
+            return array
+        }
+
+        $.post('/Chart/GetGoolgeChart', {},
+        function (data) {
+            var tdata = new google.visualization.DataTable();
+            colors = {
+                'Low Risk': '#92D050',
+                'Medium Risk': '#FFFF00',
+                'High Risk': '#FF7C80',
+            };
+
+            tdata.addColumn('string', 'Category');
+            tdata.addColumn('number', 'Counts');
+            tdata.addColumn({ type: 'string', role: 'style' });
+            tdata.addColumn({ type: 'string', role: 'annotation' });
+
+            var prjCnt = 0;
+            for (var i = 0; i < data.length; i++) {
+                tdata.addRow([data[i].Category, data[i].Count, 'color:' + data[i].Color, data[i].Category]);
+                prjCnt += data[i].Count;
+            }
+            $("#strPrjCnt").html(prjCnt + " Projects by Risk Category");
+            var selectedColor = colorsArray(data);
+            var options = {
+                title: "Risk Category (Pie)",
+                chartArea: { width: 280, height: 280 },
+                colors: selectedColor,
+                enableEvents:true,
+                is3D: true,
+            };
+
+            var chartPie = new google.visualization.PieChart(document.getElementById('pie_chart'));
+            function selectHandlerPie() {
+                var selectedItem = chartPie.getSelection()[0];
+                if (selectedItem) {
+                    var category = tdata.getValue(selectedItem.row, 0);
+                    $("#hfCategory").val(category);
+                    $("#chartformId").submit();
+                }
+                else
+                    return false;
+            }
+            google.visualization.events.addListener(chartPie, 'select', selectHandlerPie);
+            chartPie.draw(tdata, options);
+
+            var chartBar = new google.visualization.BarChart(document.getElementById('bar_chart'));
+            options = {
+                title: "Risk Category (Bar)",
+                chartArea: { width: "100%", height: 280 },
+                colors: selectedColor,
+                enableEvents:true,
+                legend: { position: 'none' },
+            };
+           function selectHandlerBar() {
+                var selectedItem = chartBar.getSelection()[0];
+                if (selectedItem) {
+                    var category = tdata.getValue(selectedItem.row, 0);
+                    $("#hfCategory").val(category);
+                    $("#chartformId").submit();
+                }
+                else
+                    return false;
+            }
+            google.visualization.events.addListener(chartBar, 'select', selectHandlerBar);
+            chartBar.draw(tdata, options);
+        });
+
+    }
+    // ]]></script>
+

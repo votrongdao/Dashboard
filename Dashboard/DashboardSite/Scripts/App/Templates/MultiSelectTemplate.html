@@ -1,0 +1,20 @@
+﻿<div class="multiSelect">
+    <div class="select">
+        <div><label class="control-label" for="multiSelectAvailable">{{ availableLabel }}</label></div>
+        <select id="multiSelectAvailable" ng-model="selected.available" multiple
+                ng-options="e[displayAttr] for e in available track by e[keyAttr]" size="8" style="width:300px;"></select>
+    </div>    
+    <div class="select buttons pull-left">
+        <button class="btn mover right" ng-click="add()" title="Remove selected" ng-disabled="selected.available.length == 0">
+            <i class="btn btn-default glyphicon glyphicon-arrow-right"></i>
+        </button>
+        <button class="btn mover left" ng-click="remove()" title="Add selected" ng-disabled="selected.current.length == 0">
+            <i class="btn btn-default glyphicon glyphicon-arrow-left"></i>
+        </button>        
+    </div>
+    <div class="select">
+        <div><label class="control-label" for="currentRoles">{{ selectedLabel }}</label></div>
+        <div><select id="currentRoles" ng-model="selected.current" multiple class="pull-left"
+                ng-options="e[displayAttr] for e in model track by e[keyAttr]" size="8" style="width:300px;"></select></div>
+    </div>
+</div>

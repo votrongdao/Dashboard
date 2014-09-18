@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+    <mvcSiteMapNode title="Home" controller="Home" action="Index" visibility="!SiteMapPathHelper,*">
+      <mvcSiteMapNode title="Log Out" controller="Account" action="LogOff"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Dashboard Charts" controller="Chart" action="Index">
+      <mvcSiteMapNode title="Pie Chart" controller="Chart" action="PieChart" />
+      <mvcSiteMapNode title="Bar Chart" controller="Chart" action="BarChart" />
+      <mvcSiteMapNode title="Histogram" controller="Chart" action="ReportExcelUpload" key="DetailId" />
+      <mvcSiteMapNode title="Geo Chart" controller="Chart" action="UploadStatusReport" key="Status"/>
+      <mvcSiteMapNode title="Heat Map" controller="Chart" action="ViewExcelUploadPageSort" key="ProjectsId"/>
+      <mvcSiteMapNode title="3D Charts" controller="Chart" action="Index" key="RiskSum" />
+      <mvcSiteMapNode title="Interactive" controller="Chart" action="Index"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Administration" controller="Account" action="ListUsers">
+      <mvcSiteMapNode title="Manage Users" controller="Account" action="ListUsers"/>
+      <mvcSiteMapNode title="Register" controller="Account" action="RegisterUserStep1"/>
+      <mvcSiteMapNode title="Change Password" controller="Account" action="ChangePasswordFromMenu"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Contact Us" controller="Home" action="DoNothing">
+      <mvcSiteMapNode title="Contact Info" controller="Home" action="Contact"/>      
+    </mvcSiteMapNode>
+  </mvcSiteMapNode>
+</mvcSiteMap>

@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"><title></title>
+    @*<title>jQuery UI Tabs - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">*@
+    <head>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#tabs").tabs();
+            });
+            //////////////// plain bar chart //////////////////////
+            google.load("visualization", "1", { packages: ["corechart"] });
+            google.setOnLoadCallback(drawChart);
+            function drawChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                  ['Year', 'Sales', 'Expenses'],
+                  ['2011', 1000, 400],
+                  ['2012', 1170, 460],
+                  ['2013', 660, 1120],
+                  ['2014', 1030, 540]
+                ]);
+
+                var options = {
+                    title: 'Company Performance',
+                    hAxis: { title: 'Year', titleTextStyle: { color: 'red' } }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+                ////////////// end plain bar chart ////////////////////
+
+                //////////// color bar chart //////////////////
+                var data = google.visualization.arrayToDataTable([
+                    ["Element", "Density", { role: "style" }],
+                    ["Copper", 8.94, "#b87333"],
+                    ["Silver", 10.49, "silver"],
+                    ["Gold", 19.30, "gold"],
+                    ["Platinum", 21.45, "color: #e5e4e2"]
+                ]);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                                 {
+                                     calc: "stringify",
+                                     sourceColumn: 1,
+                                     type: "string",
+                                     role: "annotation"
+                                 },
+                                 2]);
+
+                var options = {
+                    title: "Density of Precious Metals, in g/cm^3",
+                    width: 600,
+                    height: 400,
+                    bar: { groupWidth: "95%" },
+                    legend: { position: "none" },
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                chart.draw(view, options);
+                ////////////// end color bar chart //////////////
+
+
+                ////////////// stacked bar chart /////////////////////
+                var data = google.visualization.arrayToDataTable([
+        ['Government Spending', 'Defense', 'Health Care', 'Infrastructure', 'Social Security',
+         'Grants', 'Welfare', { role: 'annotation' }],
+        ['2010', 10, 24, 20, 32, 18, 5, ''],
+        ['2020', 16, 22, 23, 30, 16, 9, ''],
+        ['2030', 28, 19, 29, 30, 12, 13, '']
+                ]);
+                var view = new google.visualization.DataView(data);
+                var options = {
+                    width: 600,
+                    height: 400,
+                    legend: { position: 'top', maxLines: 4 },
+                    bar: { groupWidth: '75%' },
+                    isStacked: true,
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById("dvStackBar"));
+                chart.draw(view, options);
+            /////////// end stacked bar chart ///////////////////////
+
+            }
+        </script>
+    </head>
+
+</head>
+<body>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabPlain">Plain Bar</a></li>
+            <li><a href="#tabColor">Color Bar</a></li>
+            <li><a href="#tabStacked">Stacked Bar</a></li>
+        </ul>
+        <div id="tabPlain">
+            <div id="chart_div" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div id="tabColor">
+            <div id="columnchart_values" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div id="tabStacked">
+            <div id="dvStackBar" style="width: 800px; height: 800px;"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HUDHealthcarePortal", "HUDHealthcarePortal\HUDHealthcarePortal.csproj", "{35F5C5B7-6C99-460A-8CD3-126A0D325911}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BEA00984-1FA7-4528-A0B8-D40D3A3EBD9A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HUDHealthcareUnitTest", "HUDHealthcareUnitTest\HUDHealthcareUnitTest.csproj", "{C73AE313-99EE-4FA0-9971-EF4965CEB2A8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HUDIntermediateDB", "HUDHealthcarePortalDB\HUDIntermediateDB.sqlproj", "{A4551916-9F37-43BA-A53D-6C88A149401E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HUDLiveDB", "HUDLiveDB\HUDLiveDB.sqlproj", "{AE52EF80-8062-4919-AC91-2D03405DC9CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{4BE5EA86-B0EA-45F3-8663-CA5E14ABF5C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityObject", "EntityObject\EntityObject.csproj", "{8E44CBD7-0C79-45D6-9197-569B34E75409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessService", "BusinessService\BusinessService.csproj", "{BF8A0A13-198A-4385-AF27-FDFCEAB11457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{7F602457-E8A5-45C5-B93F-026C6FA6D8A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{06D5DCE2-1D25-46C7-B96E-8CCA2D5C3DB5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 10
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://162.242.189.3:8080/tfs/hudproject
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BusinessService\\BusinessService.csproj
+		SccProjectName1 = BusinessService
+		SccLocalPath1 = BusinessService
+		SccProjectUniqueName2 = Core\\Core.csproj
+		SccProjectName2 = Core
+		SccLocalPath2 = Core
+		SccProjectUniqueName3 = EntityObject\\EntityObject.csproj
+		SccProjectName3 = EntityObject
+		SccLocalPath3 = EntityObject
+		SccProjectUniqueName4 = HUDHealthcarePortal\\HUDHealthcarePortal.csproj
+		SccProjectName4 = HUDHealthcarePortal
+		SccLocalPath4 = HUDHealthcarePortal
+		SccProjectUniqueName5 = HUDHealthcarePortalDB\\HUDIntermediateDB.sqlproj
+		SccProjectName5 = HUDHealthcarePortalDB
+		SccLocalPath5 = HUDHealthcarePortalDB
+		SccProjectUniqueName6 = HUDHealthcareUnitTest\\HUDHealthcareUnitTest.csproj
+		SccProjectName6 = HUDHealthcareUnitTest
+		SccLocalPath6 = HUDHealthcareUnitTest
+		SccProjectUniqueName7 = HUDLiveDB\\HUDLiveDB.sqlproj
+		SccProjectName7 = HUDLiveDB
+		SccLocalPath7 = HUDLiveDB
+		SccProjectUniqueName8 = Model\\Model.csproj
+		SccProjectName8 = Model
+		SccLocalPath8 = Model
+		SccProjectUniqueName9 = Repository\\Repository.csproj
+		SccProjectName9 = Repository
+		SccLocalPath9 = Repository
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35F5C5B7-6C99-460A-8CD3-126A0D325911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F5C5B7-6C99-460A-8CD3-126A0D325911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F5C5B7-6C99-460A-8CD3-126A0D325911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F5C5B7-6C99-460A-8CD3-126A0D325911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73AE313-99EE-4FA0-9971-EF4965CEB2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73AE313-99EE-4FA0-9971-EF4965CEB2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73AE313-99EE-4FA0-9971-EF4965CEB2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73AE313-99EE-4FA0-9971-EF4965CEB2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4551916-9F37-43BA-A53D-6C88A149401E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE52EF80-8062-4919-AC91-2D03405DC9CC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4BE5EA86-B0EA-45F3-8663-CA5E14ABF5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE5EA86-B0EA-45F3-8663-CA5E14ABF5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE5EA86-B0EA-45F3-8663-CA5E14ABF5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE5EA86-B0EA-45F3-8663-CA5E14ABF5C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E44CBD7-0C79-45D6-9197-569B34E75409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E44CBD7-0C79-45D6-9197-569B34E75409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E44CBD7-0C79-45D6-9197-569B34E75409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E44CBD7-0C79-45D6-9197-569B34E75409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8A0A13-198A-4385-AF27-FDFCEAB11457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8A0A13-198A-4385-AF27-FDFCEAB11457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8A0A13-198A-4385-AF27-FDFCEAB11457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8A0A13-198A-4385-AF27-FDFCEAB11457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F602457-E8A5-45C5-B93F-026C6FA6D8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F602457-E8A5-45C5-B93F-026C6FA6D8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F602457-E8A5-45C5-B93F-026C6FA6D8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F602457-E8A5-45C5-B93F-026C6FA6D8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06D5DCE2-1D25-46C7-B96E-8CCA2D5C3DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06D5DCE2-1D25-46C7-B96E-8CCA2D5C3DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06D5DCE2-1D25-46C7-B96E-8CCA2D5C3DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06D5DCE2-1D25-46C7-B96E-8CCA2D5C3DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
