@@ -10,8 +10,9 @@
     <mvcSiteMapNode title="Dashboard Charts" controller="Chart" action="Index">
       <mvcSiteMapNode title="Pie Chart" controller="Chart" action="PieChart" />
       <mvcSiteMapNode title="Bar Chart" controller="Chart" action="BarChart" />
-      <mvcSiteMapNode title="Histogram" controller="Chart" action="ReportExcelUpload" key="DetailId" />
-      <mvcSiteMapNode title="Geo Chart" controller="Chart" action="UploadStatusReport" key="Status"/>
+      <mvcSiteMapNode title="Histogram" controller="Chart" action="Histogram" />
+      <mvcSiteMapNode title="Geo Chart" controller="Chart" action="GeoChart" />
+      <mvcSiteMapNode title="Bubble Chart" controller="Chart" action="BubbleChart" />
       <mvcSiteMapNode title="Heat Map" controller="Chart" action="ViewExcelUploadPageSort" key="ProjectsId"/>
       <mvcSiteMapNode title="3D Charts" controller="Chart" action="Index" key="RiskSum" />
       <mvcSiteMapNode title="Interactive" controller="Chart" action="Index"/>

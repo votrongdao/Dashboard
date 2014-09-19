@@ -48,6 +48,20 @@ namespace DashboardSite.Controllers
             return View();
         }
 
+        public ActionResult Histogram()
+        {
+            return View();
+        }
+
+        public ActionResult GeoChart()
+        {
+            return View();
+        }
+
+        public ActionResult BubbleChart()
+        {
+            return View();
+        }
         //[HttpGet]
         //public ActionResult GetPieChart()
         //{

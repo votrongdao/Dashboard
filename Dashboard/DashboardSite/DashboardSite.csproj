@@ -656,6 +656,9 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Chart\PieChart.cshtml" />
     <Content Include="Views\Chart\BarChart.cshtml" />
+    <Content Include="Views\Chart\Histogram.cshtml" />
+    <Content Include="Views\Chart\GeoChart.cshtml" />
+    <Content Include="Views\Chart\BubbleChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <!--<Folder Include="Framework\Helpers\" />-->
